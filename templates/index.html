@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Invoice Extractor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>MultiLanguage Invoice Extractor</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="flash {{ category }}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="content">
+      <!-- LEFT COLUMN -->
+      <div class="left-column">
+        <form method="post" enctype="multipart/form-data" class="invoice-form">
+          <label for="question">Prompt / Question:</label>
+          <input
+            type="text"
+            id="question"
+            name="question"
+            placeholder="E.g. What's the invoice total?"
+            value="{{ request.form.question or '' }}"
+          />
+
+          <label for="invoice_image">Upload Invoice Image:</label>
+          <input
+            type="file"
+            id="invoice_image"
+            name="invoice_image"
+            accept="image/png, image/jpeg"
+          />
+
+          <button type="submit">Ask Gemini</button>
+        </form>
+
+        {% if result %}
+          <div class="response-section">
+            <h2>Gemini’s Response</h2>
+            <p class="response">{{ result }}</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- DIVIDER -->
+      <div class="divider"></div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-column">
+        <div
+          id="preview-container"
+          class="preview-container {% if not img_data %}hidden{% endif %}"
+        >
+          <p>Preview:</p>
+          <img
+            id="preview-image"
+            class="invoice-img"
+            src="{{ img_data or '#' }}"
+            alt="Invoice preview"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('invoice_image');
+    const previewContainer = document.getElementById('preview-container');
+    const previewImage = document.getElementById('preview-image');
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        previewContainer.classList.add('hidden');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = e => {
+        previewImage.src = e.target.result;
+        previewContainer.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      {% if img_data %}
+      previewContainer.classList.remove('hidden');
+      {% endif %}
+    });
+  </script>
+</body>
+</html>

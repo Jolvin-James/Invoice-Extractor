@@ -4,3 +4,5 @@ python-dotenv
 langchain
 PyPDF2
 chromadb
+Flask
+Pillow

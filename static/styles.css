@@ -1,0 +1,118 @@
+/* Base resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout */
+body {
+  font-family: sans-serif;
+  background: #f5f5f5;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 1200px;     /* increased width */
+  margin: 0 auto;
+  background: #fff;
+  padding: 2rem;          /* more padding */
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Left column */
+.left-column {
+  flex: 3;                /* larger compared to preview */
+}
+
+.invoice-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.invoice-form label {
+  font-weight: bold;
+}
+
+.invoice-form input[type="text"],
+.invoice-form input[type="file"] {
+  padding: 0.75rem;       /* larger inputs */
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.invoice-form button {
+  align-self: flex-start;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.invoice-form button:hover {
+  background: #0056b3;
+}
+
+.response-section {
+  margin-top: 2rem;
+}
+
+.response {
+  background: #f1f1f1;
+  padding: 1.25rem;
+  border-radius: 4px;
+  line-height: 1.6;
+}
+
+/* Divider */
+.divider {
+  width: 1px;
+  background: #ddd;
+  margin: 0 1rem;
+}
+
+/* Right column */
+.right-column {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+.hidden {
+  display: none;
+}
+
+.preview-container {
+  text-align: center;
+}
+
+.preview-container p {
+  margin-bottom: 0.80rem;
+  font-weight: bold;
+}
+
+.invoice-img {
+  width: 100%;            /* fill the column */
+  max-width: 500px;       /* cap size */
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
