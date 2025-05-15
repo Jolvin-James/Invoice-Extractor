@@ -43,7 +43,7 @@
 
         {% if result %}
           <div class="response-section">
-            <h2>Gemini’s Response</h2>
+            <h2>Gemini's Response</h2>
             <p class="response">{{ result }}</p>
           </div>
         {% endif %}
@@ -70,30 +70,16 @@
     </div>
   </div>
 
+  <!-- 1. Inline: un-hide server‑provided image -->
+  {% if img_data %}
   <script>
-    const fileInput = document.getElementById('invoice_image');
-    const previewContainer = document.getElementById('preview-container');
-    const previewImage = document.getElementById('preview-image');
-
-    fileInput.addEventListener('change', () => {
-      const file = fileInput.files[0];
-      if (!file) {
-        previewContainer.classList.add('hidden');
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = e => {
-        previewImage.src = e.target.result;
-        previewContainer.classList.remove('hidden');
-      };
-      reader.readAsDataURL(file);
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      {% if img_data %}
-      previewContainer.classList.remove('hidden');
-      {% endif %}
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('preview-container').classList.remove('hidden');
     });
   </script>
+  {% endif %}
+
+  <!-- 2. Then load the external file-input logic -->
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
 </html>
