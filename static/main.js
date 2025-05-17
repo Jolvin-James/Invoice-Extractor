@@ -1,4 +1,3 @@
-// static/main.js
 document.addEventListener('DOMContentLoaded', () => {
   const fileInput = document.getElementById('invoice_image');
   const previewContainer = document.getElementById('preview-container');
@@ -10,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
       previewContainer.classList.add('hidden');
       return;
     }
+
     const reader = new FileReader();
     reader.onload = e => {
       previewImage.src = e.target.result;
@@ -17,6 +17,4 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     reader.readAsDataURL(file);
   });
-
-  // The server‑side “show if img_data” logic is now handled in HTML below
 });
